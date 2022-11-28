@@ -1,10 +1,11 @@
-
 <script lang="ts">
 
-
+    import Vaktijaba from "$lib/prayertimes_handler/sources/vaktijaba.svelte";
 
 </script>
 
-<p>
-    Prayertimes
-</p>
+
+<div>
+    <Vaktijaba />
+
+</div>
