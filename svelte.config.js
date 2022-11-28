@@ -15,6 +15,9 @@ const config = {
 			postcss: true,
 			scss: {
 				prependData: `@import '${sassPath}/_global-imports.scss';`
+			},
+			typescript: {
+				tsconfigFile: './tsconfig.json'
 			}
 		})
 	],

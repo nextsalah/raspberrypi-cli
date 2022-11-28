@@ -1,6 +1,4 @@
-
-
-abstract class PrayerTimesHandler<T> {
+abstract class PrayerTimesHandler<T>  implements IPrayerTimesHandler<T>{
     url: string = import.meta.env.VITE_API_URL as string || 'https://nextsalah.com/api/v1/prayertimes';
     end_point: string;
 
@@ -19,9 +17,12 @@ abstract class PrayerTimesHandler<T> {
         );
         return await response.json();
     }
-    
-
 }
 
+export interface IPrayerTimesHandler<T> {
+    url: string;
+    end_point: string;
+    locations(): Promise<T>;
+}
 
 export default PrayerTimesHandler;
