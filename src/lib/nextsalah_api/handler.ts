@@ -1,6 +1,7 @@
 import type { FETCH_PRAYERTIMES } from './interfaces';
 
 class PrayerTimesHandler<LocationsType>{
+    
     url: string = import.meta.env.VITE_API_URL as string || 'https://nextsalah.com/api/v1/prayertimes';
     end_point: string;
     url_object: URL;
@@ -25,7 +26,6 @@ class PrayerTimesHandler<LocationsType>{
         const response = await fetch(save_url);
         return await response.json();
     }
-
 
 }
 

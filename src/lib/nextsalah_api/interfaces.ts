@@ -1,15 +1,17 @@
 
-export type VaktijaBALocations = string[]; 
 export type SingleOptionLocation = string[];
 
-export interface ISingleOptionProps {
+export interface ISingleOptionProps extends IOptionProps {
+    select_label: string;
+    selected_key: string;
+    option_by_index: boolean;
+}
+
+export interface IOptionProps {
     source_name: string;
     source_logo_src: string;
     source_link: string;
     end_point: string;
-    select_label: string;
-    selected_key: string;
-    option_by_index: boolean;
 }
 
 
