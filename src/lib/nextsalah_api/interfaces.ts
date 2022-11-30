@@ -14,6 +14,12 @@ export interface IOptionProps {
     end_point: string;
 }
 
+export interface IFormHandlerProps  {
+    fetchFinished: boolean;
+    error: string;
+    alert_message: string;
+    handleData: () => Promise<boolean>;
+}
 
 export interface PRAYERTIMES {
     date: string;

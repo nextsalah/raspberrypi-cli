@@ -6,7 +6,7 @@
 </script>
 
 
-<Card>
+<Card class="min-w-[20rem] max-w-[30rem]">
     <div class="mb-5 flex items-center space-x-4">
         <Avatar src={OptionProps.source_logo_src} alt="{OptionProps.source_name} logo" class="flex-shrink-0"/>
             <div class="flex-1 min-w-0">

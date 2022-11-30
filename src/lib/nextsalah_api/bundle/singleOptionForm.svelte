@@ -1,38 +1,42 @@
 <script lang="ts">
     import PrayerTimesHandler from "$lib/nextsalah_api/handler";
-    import type { SingleOptionLocation, ISingleOptionProps } from "$lib/nextsalah_api/interfaces";
-    import { Spinner , Select, Label, Button } from 'flowbite-svelte';
-    import type {  SelectOptionType } from "flowbite-svelte/types";
-    import { onMount } from "svelte";
 	import FormCard from "./formCard.svelte";
+    import FormHandler from "./formHandler.svelte";
+    import type { SingleOptionLocation, ISingleOptionProps, IFormHandlerProps } from "../interfaces";
+    import type {  SelectOptionType } from "flowbite-svelte/types";
+    import {  Select, Label  } from 'flowbite-svelte';
+    import { onMount } from "svelte";
         
-    
     
     export let singleOptionProps: ISingleOptionProps;
     let options: SelectOptionType[] = [];
     let selected: string;
-    let finished: boolean = false;
-    let error: string = "";
-    let button_disabled: boolean = false;
-
-    const prayertime = new PrayerTimesHandler<SingleOptionLocation>(singleOptionProps.end_point);
-    
-    function handleSendData( selected: string  ): void {
-        if ( !selected ) return;
-        button_disabled = true;
+    const handleSendData = async (): Promise<boolean> => {
+        if ( !selected ){
+            FormHandlerProps.alert_message = "Please select a location";
+            return false;
+        }
         const key: string = singleOptionProps.selected_key;
-        prayertime.save( { [key] : selected }).then( (data) => {
-            console.log(data);
-            button_disabled = false;
-        });
+        const response = await prayertime.save( { [key] : selected }) as Awaited<ReturnType<typeof prayertime.save>>;
+        if ( response instanceof Error ) {return false;}
+        return true;
     }
+    
+    let FormHandlerProps: IFormHandlerProps= {
+        fetchFinished: false,
+        error: "",
+        alert_message: "",
+        handleData: () => handleSendData()
+    }
+    
+    const prayertime = new PrayerTimesHandler<SingleOptionLocation>(singleOptionProps.end_point);
     
     onMount(async () => {
         let locations = await prayertime.locations() as Awaited<ReturnType<typeof prayertime.locations> | Error>;
         
         if ( locations instanceof Error ) {
-            error = locations.message;
-            finished = true;
+            FormHandlerProps.error = locations.message;
+            FormHandlerProps.fetchFinished = true;
             return;
         }
 
@@ -44,21 +48,17 @@
             }
         }
 
-        finished = true;
+        FormHandlerProps.fetchFinished = true;
     });
 
 </script>
 
 
 <FormCard OptionProps={singleOptionProps}>
-    {#if finished && !error}
-        <Label>{singleOptionProps.select_label}
+    <FormHandler FormHandlerProps={FormHandlerProps}>
+        <Label>
+            {singleOptionProps.select_label}
             <Select class="mt-2" items={options} bind:value={selected} />
         </Label>
-        <Button class="mt-5" disabled={button_disabled} on:click={() => handleSendData(selected)}>Save Prayer Times</Button>
-    {:else if error}
-        <p class="text-red-500">{error}</p>
-    {:else}
-        <Spinner color="purple" />
-    {/if}
+    </FormHandler>
 </FormCard>
