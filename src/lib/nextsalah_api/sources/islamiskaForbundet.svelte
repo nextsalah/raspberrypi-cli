@@ -1,6 +1,6 @@
 <script lang="ts">
 
-    import SingleOptionForm from "../bundle/singleOptionForm.svelte";
+    import SingleOption from "../template/default.svelte";
     import type { ISingleOptionProps} from "$lib/nextsalah_api/interfaces";
 
     const data: ISingleOptionProps = {
@@ -15,4 +15,4 @@
 
 </script>
 
-<SingleOptionForm  singleOptionProps={data} />
+<SingleOption  singleOptionProps={data} />

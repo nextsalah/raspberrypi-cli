@@ -1,6 +1,21 @@
 
 export type SingleOptionLocation = string[];
 
+interface VaktijaEUData {
+    "name": string,
+    "slug": string,
+    "country": {    
+        "id": number,
+        "title": string,
+        "short_code": string
+    }
+}
+
+export interface VaktijaEULocations {
+    "data": VaktijaEUData[]
+}
+
+
 export interface ISingleOptionProps extends IOptionProps {
     select_label: string;
     selected_key: string;

@@ -1,7 +1,12 @@
 <script lang="ts">
-    import PrayerTimesHandler from "$lib/nextsalah_api/handler";
-	import FormCard from "./formCard.svelte";
-    import FormHandler from "./formHandler.svelte";
+    /*
+    * This component is used for all the single option forms.
+    * It is used to get the options from the api and display them in a select.
+    * @param singleOptionProps
+    */
+    import NextSalahAPI from "$lib/nextsalah_api/handler";
+	import FormCard from "../components/formCard.svelte";
+    import FormHandler from "../components/formHandler.svelte";
     import type { SingleOptionLocation, ISingleOptionProps, IFormHandlerProps } from "../interfaces";
     import type {  SelectOptionType } from "flowbite-svelte/types";
     import {  Select, Label  } from 'flowbite-svelte';
@@ -17,7 +22,7 @@
             return false;
         }
         const key: string = singleOptionProps.selected_key;
-        const response = await prayertime.save( { [key] : selected }) as Awaited<ReturnType<typeof prayertime.save>>;
+        const response = await prayertime.save_location( { [key] : selected }) as Awaited<ReturnType<typeof prayertime.save_location>>;
         if ( response instanceof Error ) {return false;}
         return true;
     }
@@ -29,17 +34,20 @@
         handleData: () => handleSendData()
     }
     
-    const prayertime = new PrayerTimesHandler<SingleOptionLocation>(singleOptionProps.end_point);
+    const prayertime = new NextSalahAPI<SingleOptionLocation>(singleOptionProps.end_point);
     
     onMount(async () => {
-        let locations = await prayertime.locations() as Awaited<ReturnType<typeof prayertime.locations> | Error>;
+
+        // Get all locations
+        let locations = await prayertime.get_all_locations() as Awaited<ReturnType<typeof prayertime.get_all_locations> | Error>;
         
+        // If there is an error, set the error message and return
         if ( locations instanceof Error ) {
             FormHandlerProps.error = locations.message;
             FormHandlerProps.fetchFinished = true;
             return;
         }
-
+        
         for ( const [index, location] of locations.entries() ) {
             if ( singleOptionProps.option_by_index ) {
                 options.push({ value: index.toString(10), name: location });

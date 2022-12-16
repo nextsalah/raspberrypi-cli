@@ -1,12 +1,15 @@
 <script lang="ts">
+    /*
+    * This component is used to display the source information.
+    * @param OptionProps
+    */
     import type {  IOptionProps } from "$lib/nextsalah_api/interfaces";
     import { Card, Avatar} from 'flowbite-svelte';
-
     export let OptionProps: IOptionProps;
 </script>
 
 
-<Card class="min-w-[20rem] max-w-[30rem]">
+<Card class="min-w-[25rem] max-w-[30rem] ">
     <div class="mb-5 flex items-center space-x-4">
         <Avatar src={OptionProps.source_logo_src} alt="{OptionProps.source_name} logo" class="flex-shrink-0"/>
             <div class="flex-1 min-w-0">
