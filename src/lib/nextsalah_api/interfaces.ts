@@ -16,13 +16,13 @@ export interface VaktijaEULocations {
 }
 
 
-export interface ISingleOptionProps extends IOptionProps {
+export interface ISingleOptionProps extends ISourceData {
     select_label: string;
     selected_key: string;
     option_by_index: boolean;
 }
 
-export interface IOptionProps {
+export interface ISourceData {
     source_name: string;
     source_logo_src: string;
     source_link: string;
