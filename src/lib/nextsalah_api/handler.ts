@@ -1,5 +1,4 @@
 import type { FETCH_PRAYERTIMES } from './interfaces';
-
 /**
  * The NextSalahAPI class is a class that handles all the API calls to the NextSalah API
  * @param LocationsType - The return type of locations
@@ -27,10 +26,18 @@ class NextSalahAPI<LocationsType>{
         let save_url = this.url_object
         save_url.search = new URLSearchParams( data ).toString();
         const response = await fetch(save_url);
+        
+        const response2 = await fetch("/api/prayertimes", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
         if (response.status === 200) {
             return await response.json();
         }
-
         return new Error('Saving data failed');
     }
 

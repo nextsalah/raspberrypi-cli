@@ -2,9 +2,9 @@
   	import { Card } from "flowbite-svelte";
 	import type { PageData } from './$types';
 	export let data: PageData;
+
+
 </script>
-
-
 
 <div class="flex flex-col gap-4 sm:flex-row ">
 	{#each data.navigation.items as nav_item}
