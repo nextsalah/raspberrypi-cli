@@ -25,7 +25,7 @@
             FormHandlerProps.alert_message = "Please select a city";
             return false;
         }
-        const response = await VaktijaEU.save_location( { location_slug : city_selected }) as Awaited<ReturnType<typeof VaktijaEU.save_location>>;
+        const response = await VaktijaEU.saveLocation( { location_slug : city_selected }) as Awaited<ReturnType<typeof VaktijaEU.saveLocation>>;
         if (response instanceof Error) {
             return false;
         } 
@@ -47,7 +47,7 @@
 
     onMount(async () => {
         // Get all locations
-        let locations = await VaktijaEU.get_all_locations() as Awaited<ReturnType<typeof VaktijaEU.get_all_locations> | Error>;
+        let locations = await VaktijaEU.getAllLocations() as Awaited<ReturnType<typeof VaktijaEU.getAllLocations> | Error>;
             // If there is an error, set the error message and return
             if ( locations instanceof Error ) {
             FormHandlerProps.error = locations.message;

@@ -22,7 +22,7 @@
             return false;
         }
         const key: string = singleOptionProps.selected_key;
-        const response = await prayertime.save_location( { [key] : selected }) as Awaited<ReturnType<typeof prayertime.save_location>>;
+        const response = await prayertime.saveLocation( { [key] : selected }) as Awaited<ReturnType<typeof prayertime.saveLocation>>;
         if ( response instanceof Error ) {return false;}
         return true;
     }
@@ -39,8 +39,8 @@
     onMount(async () => {
 
         // Get all locations
-        let locations = await prayertime.get_all_locations() as Awaited<ReturnType<typeof prayertime.get_all_locations> | Error>;
-        
+        let locations = await prayertime.getAllLocations() as Awaited<ReturnType<typeof prayertime.getAllLocations> | Error>;
+
         // If there is an error, set the error message and return
         if ( locations instanceof Error ) {
             FormHandlerProps.error = locations.message;
