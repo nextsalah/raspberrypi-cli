@@ -3,7 +3,7 @@ import type { FETCH_PRAYERTIMES } from './interfaces';
  * The NextSalahAPI class is a class that handles all the API calls to the NextSalah API
  * @param LocationsType - The return type of locations
  **/
-class NextSalahAPI<LocationsType>{
+class NextSalahAPI{
     url: string = import.meta.env.VITE_API_URL as string || 'https://nextsalah.com/api/v1/prayertimes/';
     endPoint: string;
     urlObject: URL;
@@ -18,7 +18,7 @@ class NextSalahAPI<LocationsType>{
      * Get all the possible locations from the source.
      * @returns A promise that resolves to either an array of locations or an error.
      */
-    async getAllLocations(): Promise<LocationsType | Error> {
+    async getAllLocations(): Promise<any | Error> {
         return await this.sendHttpRequest(this.urlObject.toString() + "/locations", 'GET', null);
     }
 
@@ -27,22 +27,22 @@ class NextSalahAPI<LocationsType>{
      * @param data - Location data to be sent to the API
      * @returns The response from the API call <FetchPrayerTimes | Error>
      */
-    async saveLocation( data: Record<string,string> ) : Promise<FETCH_PRAYERTIMES | Error>  {
-        const response = await this.getLocation( data );
-        if (response instanceof Error) return response;
+    // async saveLocation( data: Record<string,any> ) : Promise<FETCH_PRAYERTIMES | Error>  {
+    //     const response = await this.getLocation( data );
+    //     if (response instanceof Error) return response;
         
-        const saveToDatabase = await this.sendHttpRequest("/api/prayertimes", 'POST', JSON.stringify(response));
-        if (saveToDatabase instanceof Error) return saveToDatabase;
+    //     const saveToDatabase = await this.sendHttpRequest("/api/prayertimes", 'POST', JSON.stringify(response));
+    //     if (saveToDatabase instanceof Error) return saveToDatabase;
 
-        return response;
-    }
+    //     return response;
+    // }
 
     /**
      * Get a single location's prayertimes from the API
      * @param data - Location data to be sent to the API
      * @returns A promise that resolves to a FETCH_PRAYERTIMES object or an Error object.
      */
-    async getLocation( data: Record<string,string> ) : Promise<FETCH_PRAYERTIMES | Error>  {
+    async getLocation( data: Record<string,any> ) : Promise<FETCH_PRAYERTIMES | Error>  {
         let saveURL = this.urlObject
         saveURL.search = new URLSearchParams( data ).toString();
         return await this.sendHttpRequest(saveURL.toString(), 'GET', null);

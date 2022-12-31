@@ -16,13 +16,13 @@ export interface VaktijaEULocations {
 }
 
 
-export interface ISingleOptionProps extends ISourceData {
+export interface ISingleOptionProps extends ISourceInfo {
     select_label: string;
     selected_key: string;
     option_by_index: boolean;
 }
 
-export interface ISourceData {
+export interface ISourceInfo {
     source_name: string;
     source_logo_src: string;
     source_link: string;
@@ -33,8 +33,10 @@ export interface IFormHandlerProps  {
     fetchFinished: boolean;
     error: string;
     alert_message: string;
-    handleData: () => Promise<boolean>;
+    handleData: <T>( locations: T ) => any;
 }
+
+export interface IFormData  extends ISourceInfo, IFormHandlerProps {}
 
 export interface PRAYERTIMES {
     date: string;

@@ -1,9 +1,9 @@
 <script lang="ts">
 
-    import SingleOption from "../template/default.svelte";
+    import SingleOption from "../template/SingleOptionForm.svelte";
     import type { ISingleOptionProps} from "$lib/nextsalah_api/interfaces";
 
-    const data: ISingleOptionProps = {
+    const SingleFormData: ISingleOptionProps = {
         source_name: "Vaktija.ba",
         source_logo_src: "https://play-lh.googleusercontent.com/0aH4KF0JYg_h7WX370EN-RrE2elixm2k3-sjx2Fbz7m-INvmXkbEkhUf4Hd0EIFnNw",
         source_link: "https://vaktija.ba/",
@@ -16,4 +16,4 @@
     
 </script>
 
-<SingleOption  singleOptionProps={data} />
+<SingleOption  {SingleFormData} />

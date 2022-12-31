@@ -9,6 +9,6 @@
 
 <div class="flex flex-wrap justify-center gap-5">
     <Vaktijaba />
-    <Vaktijaeu />
+    <!-- <Vaktijaeu />-->
     <IslamiskaForbundet />
 </div>

@@ -1,9 +1,9 @@
 <script lang="ts">
 
-    import SingleOption from "../template/default.svelte";
+    import SingleOption from "../template/SingleOptionForm.svelte";
     import type { ISingleOptionProps} from "$lib/nextsalah_api/interfaces";
 
-    const data: ISingleOptionProps = {
+    const SingleFormData: ISingleOptionProps = {
         source_name: "Islamiska Förbundet",
         source_logo_src: "https://www.islamiskaforbundet.se/wp-content/uploads/2015/07/IF_Fyrkantig-e1488561982527.jpg",
         source_link: "https://www.islamiskaforbundet.se/",
@@ -15,4 +15,4 @@
 
 </script>
 
-<SingleOption  singleOptionProps={data} />
+<SingleOption  {SingleFormData} />
