@@ -22,20 +22,6 @@ class NextSalahAPI{
         return await this.sendHttpRequest(this.urlObject.toString() + "/locations", 'GET', null);
     }
 
-    /**
-     * > Saves the prayertime data to the database.
-     * @param data - Location data to be sent to the API
-     * @returns The response from the API call <FetchPrayerTimes | Error>
-     */
-    // async saveLocation( data: Record<string,any> ) : Promise<FETCH_PRAYERTIMES | Error>  {
-    //     const response = await this.getLocation( data );
-    //     if (response instanceof Error) return response;
-        
-    //     const saveToDatabase = await this.sendHttpRequest("/api/prayertimes", 'POST', JSON.stringify(response));
-    //     if (saveToDatabase instanceof Error) return saveToDatabase;
-
-    //     return response;
-    // }
 
     /**
      * Get a single location's prayertimes from the API
@@ -57,8 +43,25 @@ class NextSalahAPI{
      */
     async sendHttpRequest(url: string, method: string, body?: any): Promise<any | Error> {
         const response = await fetch(url, { method,headers: { 'Content-Type': 'application/json' },body });
-        if (!response.ok) {
-            return new Error(`HTTP request failed with status code ${response.status}`);
+        if (!response.ok) {  
+            if (response.status === 404) {
+                const data = await response.json();
+                return new Error(data.detail);
+            }
+            else if ( response.status === 422 ) {
+
+                // Return the error messages from the API
+                const data = await response.json();
+                const errorMessages = data.detail.map((error: any) => {
+                    // uppercase the first letter of the error message
+                    return error.msg.charAt(0).toUpperCase() + error.msg.slice(1);
+                });
+                return new Error(errorMessages.join(', '));
+
+            }
+            else  {                
+                return new Error('HTTP Error: ' + response.status + ' ' + response.statusText);
+            }
         }
         return await response.json();
     }

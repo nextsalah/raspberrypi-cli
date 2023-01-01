@@ -13,10 +13,7 @@
     export let SingleFormData: ISingleOptionProps;
     const FormData = {
         ...SingleFormData,
-        fetchFinished: false,
-        error: "",
-        alert_message: "",
-        handleData: ( locations: SingleOptionLocation ) => handleFetchData(locations),
+        handleData: ( locations ) => handleFetchData(locations as SingleOptionLocation),
     } as IFormData & ISingleOptionProps;
 
     let options: SelectOptionType[] = [];
@@ -43,6 +40,7 @@
             items={options} 
             bind:value={selected} 
             name={FormData.selected_key}
+            required={true}
         />
     </Label>
 </Form>

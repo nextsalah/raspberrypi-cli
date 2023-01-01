@@ -29,14 +29,18 @@ export interface ISourceInfo {
     end_point: string;
 }
 
+export interface IClientHandler {
+    handleData: <T>( locations: T ) => any;
+    formValid?: () => boolean;
+}
+
 export interface IFormHandlerProps  {
     fetchFinished: boolean;
     error: string;
     alert_message: string;
-    handleData: <T>( locations: T ) => any;
 }
 
-export interface IFormData  extends ISourceInfo, IFormHandlerProps {}
+export interface IFormData  extends ISourceInfo, IClientHandler {}
 
 export interface PRAYERTIMES {
     date: string;

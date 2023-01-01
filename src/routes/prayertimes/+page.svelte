@@ -7,8 +7,8 @@
 </script>
 
 
-<div class="flex flex-wrap justify-center gap-5">
+<div class="flex flex-wrap gap-5 justify-center sm:justify-start">
     <Vaktijaba />
-    <!-- <Vaktijaeu />-->
+    <Vaktijaeu />
     <IslamiskaForbundet />
 </div>
